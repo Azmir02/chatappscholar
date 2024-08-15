@@ -6,8 +6,11 @@ import { signOut, getAuth } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { LogeOutUser } from "../../features/Slices/LoginSlice";
 import { CameraIcon } from "../../svg/Camera";
+import { createPortal } from "react-dom";
+import Modals from "../Modals";
 
 const Navbar = () => {
+  const [show, setShow] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -75,6 +78,7 @@ const Navbar = () => {
           </button>
         </div>
       </div>
+      {show && createPortal(<Modals setShow={setShow} />, document.body)}
     </>
   );
 };
