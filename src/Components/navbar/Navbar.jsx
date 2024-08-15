@@ -10,7 +10,7 @@ import { createPortal } from "react-dom";
 import Modals from "../Modals";
 
 const Navbar = () => {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
