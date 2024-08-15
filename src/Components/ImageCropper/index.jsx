@@ -2,7 +2,7 @@ import React from "react";
 import { CrossIcon } from "../../svg/Cross";
 import { Cropper } from "react-cropper";
 
-const ImageCropper = ({ image, setImage, cropperRef }) => {
+const ImageCropper = ({ image, setImage, cropperRef, getCropData }) => {
   return (
     <>
       <div className="fixed top-0 left-0 w-full h-screen flex items-center justify-center">
@@ -24,7 +24,7 @@ const ImageCropper = ({ image, setImage, cropperRef }) => {
               style={{ width: "100%", float: "left", height: "300px" }}
             />
           </div>
-          <div>
+          <div className="mt-5">
             <Cropper
               ref={cropperRef}
               style={{ height: 400, width: "100%" }}
@@ -42,6 +42,12 @@ const ImageCropper = ({ image, setImage, cropperRef }) => {
               guides={true}
             />
           </div>
+          <button
+            className="bg-[#6CD0FB] text-white font-fontBold w-full py-2 rounded-md mt-3"
+            onClick={getCropData}
+          >
+            Upload
+          </button>
         </div>
       </div>
     </>
