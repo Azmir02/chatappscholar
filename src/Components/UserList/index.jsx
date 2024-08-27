@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { AddFriendIcon } from "../../svg/AddFriend";
-import { getDatabase, onValue, push, ref, set } from "firebase/database";
+import {
+  getDatabase,
+  onValue,
+  push,
+  ref,
+  remove,
+  set,
+} from "firebase/database";
 import { useSelector } from "react-redux";
 import { getDownloadURL, getStorage, ref as Ref } from "firebase/storage";
 import avatarImage from "../../assets/avatar.jpg";
@@ -60,25 +67,24 @@ const UserLists = () => {
     const starCountRef = ref(db, "friendRequest/");
     onValue(starCountRef, (snapshot) => {
       let reqArr = [];
-      snapshot.forEach((item) => {
-        reqArr.push(item.val().receiverId + item.val().senderId);
-      });
-      setFriendReqList(reqArr);
-    });
-  }, [db]);
-
-  // cancel request
-
-  useEffect(() => {
-    const starCountRef = ref(db, "friendRequest/");
-    onValue(starCountRef, (snapshot) => {
       let cancelReq = [];
       snapshot.forEach((item) => {
+        reqArr.push(item.val().receiverId + item.val().senderId);
         cancelReq.push({ ...item.val(), id: item.key });
       });
+      setFriendReqList(reqArr);
       setCancelReq(cancelReq);
     });
   }, [db]);
+
+  const handleCancelReq = (itemId) => {
+    const reqToCancel = cancelReq.find(
+      (req) => req.receiverId === itemId && req.senderId === user.uid
+    );
+    if (reqToCancel) {
+      remove(ref(db, "friendRequest/" + reqToCancel.id));
+    }
+  };
 
   return (
     <>
@@ -100,7 +106,10 @@ const UserLists = () => {
             </div>
             {friendReqList.includes(item.id + user.uid) ||
             friendReqList.includes(user.uid + item.id) ? (
-              <button className="bg-red-500 px-4 py-2 rounded-md text-white font-fontRegular">
+              <button
+                className="bg-red-500 px-4 py-2 rounded-md text-white font-fontRegular"
+                onClick={() => handleCancelReq(item.id)}
+              >
                 cancel request
               </button>
             ) : (
