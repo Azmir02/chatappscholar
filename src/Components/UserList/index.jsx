@@ -16,6 +16,7 @@ const UserLists = () => {
   const user = useSelector((user) => user.login.loggedIn);
   const [users, setUsers] = useState([]);
   const [friendReqList, setFriendReqList] = useState([]);
+  const [friends, setFriends] = useState([]);
   const [cancelReq, setCancelReq] = useState([]);
 
   const storage = getStorage();
@@ -77,6 +78,17 @@ const UserLists = () => {
     });
   }, [db]);
 
+  useEffect(() => {
+    const starCountRef = ref(db, "friends");
+    onValue(starCountRef, (snapshot) => {
+      let frndArr = [];
+      snapshot.forEach((item) => {
+        frndArr.push(item.val().receiverId + item.val().senderId);
+      });
+      setFriends(frndArr);
+    });
+  }, [db]);
+
   const handleCancelReq = (itemId) => {
     const reqToCancel = cancelReq.find(
       (req) => req.receiverId === itemId && req.senderId === user.uid
@@ -104,8 +116,13 @@ const UserLists = () => {
                 {item.username}
               </h3>
             </div>
-            {friendReqList.includes(item.id + user.uid) ||
-            friendReqList.includes(user.uid + item.id) ? (
+            {friends.includes(item.id + user.uid) ||
+            friends.includes(user.uid + item.id) ? (
+              <span className="bg-cyan-300 px-4 py-2 rounded-md text-black font-fontRegular">
+                Friends
+              </span>
+            ) : friendReqList.includes(item.id + user.uid) ||
+              friendReqList.includes(user.uid + item.id) ? (
               <button
                 className="bg-red-500 px-4 py-2 rounded-md text-white font-fontRegular"
                 onClick={() => handleCancelReq(item.id)}
