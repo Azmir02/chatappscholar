@@ -29,7 +29,6 @@ const FriendRequest = () => {
     });
   }, [db, user.uid]);
 
-  console.log(friendReqList);
   // accept request
   const handleAccept = (data) => {
     set(push(ref(db, "friends")), {
