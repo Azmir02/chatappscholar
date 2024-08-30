@@ -7,6 +7,7 @@ import { ActiveSingle } from "../../features/Slices/ActiveSingleSlice";
 
 const Friends = () => {
   const user = useSelector((user) => user.login.loggedIn);
+  const singleFriend = useSelector((single) => single.active.active);
   const [friends, setFriends] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
@@ -49,8 +50,6 @@ const Friends = () => {
         })
       );
     } else {
-      console.log("sender");
-
       dispatch(
         ActiveSingle({
           status: "single",
@@ -77,7 +76,11 @@ const Friends = () => {
         <h1 className="font-fontBold text-black text-xl">All Friends</h1>
         {friends?.map((item) => (
           <div
-            className="flex items-center justify-between mt-3 hover:bg-[#efefef] px-4 py-2 rounded-md transition-all ease-linear duration-100 cursor-pointer"
+            className={`${
+              item?.receiverId === singleFriend?.id
+                ? "bg-[#efefef]"
+                : item?.senderId === singleFriend?.id && "bg-[#efefef]"
+            } flex items-center justify-between mt-3 hover:bg-[#efefef] px-4 py-2 rounded-md transition-all ease-linear duration-100 cursor-pointer`}
             key={item.id}
             onClick={() => handleSingleChat(item)}
           >

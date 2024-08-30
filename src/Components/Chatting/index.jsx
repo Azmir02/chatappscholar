@@ -56,13 +56,13 @@ const Chatting = () => {
           <div className="flex items-center gap-x-2">
             <div className="w-10 h-10 rounded-full overflow-hidden">
               <img
-                src={singleFriend.profile || avatarImage}
+                src={singleFriend?.profile || avatarImage}
                 className="w-full h-full object-cover"
               />
             </div>
             <div>
               <span className="font-fontRegular text-black">
-                {singleFriend.name || "Please select your friend for chatting"}
+                {singleFriend?.name || "Please select your friend for chatting"}
               </span>
             </div>
           </div>
