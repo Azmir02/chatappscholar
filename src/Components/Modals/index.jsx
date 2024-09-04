@@ -16,6 +16,7 @@ const Modals = ({ setShow }) => {
   const user = useSelector((user) => user.login.loggedIn);
   const [image, setImage] = useState();
   const [cropData, setCropData] = useState("#");
+  const [loading, setLoading] = useState(false);
   const cropperRef = useRef();
   const fileRef = useRef(null);
   const storage = getStorage();
@@ -38,6 +39,7 @@ const Modals = ({ setShow }) => {
     reader.readAsDataURL(files[0]);
   };
   const getCropData = () => {
+    setLoading(true);
     if (typeof cropperRef.current?.cropper !== "undefined") {
       setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
       const message4 = cropperRef.current?.cropper
@@ -53,6 +55,7 @@ const Modals = ({ setShow }) => {
               "user",
               JSON.stringify({ ...user, photoURL: downloadURL })
             );
+            setLoading(false);
             setShow(false);
           });
         });
@@ -100,6 +103,7 @@ const Modals = ({ setShow }) => {
             setImage={setImage}
             cropperRef={cropperRef}
             getCropData={getCropData}
+            loading={loading}
           />
         )}
       </div>

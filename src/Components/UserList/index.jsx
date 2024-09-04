@@ -10,7 +10,7 @@ import {
 } from "firebase/database";
 import { useSelector } from "react-redux";
 import { getDownloadURL, getStorage, ref as Ref } from "firebase/storage";
-import avatarImage from "../../assets/avatar.jpg";
+import avatarImage from "/image/avatar.jpg";
 
 const UserLists = () => {
   const user = useSelector((user) => user.login.loggedIn);
@@ -56,10 +56,10 @@ const UserLists = () => {
     set(push(ref(db, "friendRequest")), {
       senderName: user.displayName,
       senderId: user.uid,
-      currentProfile: user.photoURL ?? "/src/assets/avatar.jpg",
+      currentProfile: user.photoURL ?? "/image/avatar.jpg",
       receiverName: data.username,
       receiverId: data.id,
-      receiverProfile: data.photoURL ?? "/src/assets/avatar.jpg",
+      receiverProfile: data.photoURL ?? "/image/avatar.jpg",
     });
   };
 

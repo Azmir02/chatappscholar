@@ -1,8 +1,15 @@
 import React from "react";
 import { CrossIcon } from "../../svg/Cross";
 import { Cropper } from "react-cropper";
+import { PulseLoader } from "react-spinners";
 
-const ImageCropper = ({ image, setImage, cropperRef, getCropData }) => {
+const ImageCropper = ({
+  image,
+  setImage,
+  cropperRef,
+  getCropData,
+  loading,
+}) => {
   return (
     <>
       <div className="fixed top-0 left-0 w-full h-screen flex items-center justify-center">
@@ -43,10 +50,11 @@ const ImageCropper = ({ image, setImage, cropperRef, getCropData }) => {
             />
           </div>
           <button
+            disabled={loading}
             className="bg-[#6CD0FB] text-white font-fontBold w-full py-2 rounded-md mt-3"
             onClick={getCropData}
           >
-            Upload
+            {loading ? <PulseLoader color="#fff" size={8} /> : "Upload"}
           </button>
         </div>
       </div>

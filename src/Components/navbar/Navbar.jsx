@@ -8,7 +8,7 @@ import { LogeOutUser } from "../../features/Slices/LoginSlice";
 import { CameraIcon } from "../../svg/Camera";
 import { createPortal } from "react-dom";
 import Modals from "../Modals";
-import avatarImage from "../../assets/avatar.jpg";
+import avatarImage from "/image/avatar.jpg";
 
 const Navbar = () => {
   const user = useSelector((user) => user.login.loggedIn);
