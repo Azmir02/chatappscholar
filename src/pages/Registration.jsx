@@ -3,10 +3,14 @@ import RegFromComp from "../Components/Registration";
 import Lottie from "lottie-react";
 import registrationAnimation from "../animations/regAnimation.json";
 import { ToastContainer, toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const Registration = () => {
   return (
     <>
+      <Helmet>
+        <title>Registration</title>
+      </Helmet>
       <ToastContainer />
       <div className="w-full h-screen flex items-center justify-center">
         <div className="w-2/4 bg-white shadow-md rounded-sm p-4 flex items-center gap-x-2 justify-between">

@@ -3,10 +3,14 @@ import Navbar from "../Components/navbar/Navbar";
 import UserLists from "../Components/UserList";
 import FriendRequest from "../Components/FriendRequest";
 import Friends from "../Components/Friends";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   return (
     <>
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
       <div className="grid grid-cols-[2fr,4fr]">
         <div className="w-full">
           <UserLists />
